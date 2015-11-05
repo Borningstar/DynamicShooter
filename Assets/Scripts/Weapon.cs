@@ -4,7 +4,7 @@ using System.Collections;
 public class Weapon : MonoBehaviour {
 
     public GameObject projectileObject;
-    public GameObject weaponModifierObject
+    public GameObject weaponModifierObject;
     public float fireRate;
 
     protected float cost;
