@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    public float Cost;
+    public float cost;
     public float speed;
+    public float damage;
 
     private Rigidbody rb;
 

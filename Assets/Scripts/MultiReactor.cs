@@ -11,9 +11,8 @@ namespace Assets.Scripts
         public GameObject[] reactorSockets;
 
         private List<Reactor> reactors;
-        private float currentCharge;
 
-        public override void Start()
+        protected override void Start()
         {
             reactors = new List<Reactor>();
 
@@ -21,38 +20,34 @@ namespace Assets.Scripts
             {
                 var reactor = reactorSocket.GetComponent<Reactor>();
                 reactors.Add(reactor);
-                maximumCapacity += reactor.maximumCapacity;
             }
         }
 
-        public override void Update()
+        protected override void Update()
         {
-            currentCharge = 0;
-            foreach(var reactor in reactors)
+            if (Time.time > nextCharge && currentCharge < maximumCapacity)
             {
-                currentCharge += reactor.CurrentCharge;
-            }
-        }
-
-        public override bool Drain(float amount)
-        {
-            foreach(var reactor in reactors)
-            {
-                if (reactor.Drain(amount))
+                nextCharge = Time.time + rechargeRate;
+                currentCharge += rechargeAmount;
+                if (currentCharge > maximumCapacity)
                 {
-                    currentCharge -= amount;
-                    return true;
+                    currentCharge = maximumCapacity;
+                }
+                else
+                {
+                    foreach (var reactor in reactors)
+                    {
+                        currentCharge += reactor.CurrentCharge;
+                        reactor.Drain(reactor.CurrentCharge);
+                        if (currentCharge > maximumCapacity)
+                        {
+                            currentCharge = maximumCapacity;
+                            break;
+                        }
+                    }
                 }
             }
-            return false;
         }
 
-        public override float CurrentCharge
-        {
-            get
-            {
-                return currentCharge;
-            }
-        }
     }
 }

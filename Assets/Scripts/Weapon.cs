@@ -4,22 +4,18 @@ using System.Collections;
 public class Weapon : MonoBehaviour {
 
     public GameObject projectileObject;
+    public GameObject weaponModifierObject
     public float fireRate;
 
-    private float cost;
-    private float nextFire;
+    protected float cost;
+    protected float nextFire;
 
-	void Start ()
+	protected virtual void Start ()
     {
-        cost = projectileObject.GetComponent<Projectile>().Cost;
-	}
-	
-	void Update ()
-    {
-	
+        cost = projectileObject.GetComponent<Projectile>().cost;
 	}
 
-    public bool Fire (Transform shotSpawn, Reactor reactor)
+    public virtual bool Fire (Transform shotSpawn, Reactor reactor)
     {
         if (Time.time > nextFire)
         {

@@ -7,15 +7,15 @@ public class Reactor : MonoBehaviour {
     public float rechargeRate;
     public float rechargeAmount;
 
-    private float currentCharge;
-    private float nextCharge;
+    protected float currentCharge;
+    protected float nextCharge;
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         currentCharge = maximumCapacity;
     }
 
-    public virtual void Update()
+    protected virtual void Update()
     {
         if (Time.time > nextCharge && currentCharge < maximumCapacity)
         {
@@ -38,7 +38,7 @@ public class Reactor : MonoBehaviour {
         return false;
     }
 
-    public virtual float CurrentCharge
+    public float CurrentCharge
     {
         get
         {
