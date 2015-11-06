@@ -54,8 +54,9 @@ public class Weapon : MonoBehaviour {
         {
             weaponModifier = weaponModifierObject.GetComponent<WeaponModifier>();
             projectile.GetComponent<Projectile>().damage *= weaponModifier.damageMod;
+            var oldScale = projectile.transform.localScale;
+            projectile.transform.localScale = Vector3.Scale(weaponModifier.sizeMod, oldScale);
             projectile.GetComponent<Projectile>().speed *= weaponModifier.speedMod;
-            projectile.transform.localScale.Scale(weaponModifier.sizeMod);
         }
     }
 }
