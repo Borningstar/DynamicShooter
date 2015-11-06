@@ -14,6 +14,8 @@ namespace Assets.Scripts
 
         protected override void Start()
         {
+            //base.Start();
+
             reactors = new List<Reactor>();
 
             foreach(var reactorSocket in reactorSockets)

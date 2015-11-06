@@ -9,11 +9,20 @@ public class Weapon : MonoBehaviour {
 
     protected float cost;
     protected float nextFire;
+    protected WeaponModifier weaponModifier;
 
 	protected virtual void Start ()
     {
         cost = projectileObject.GetComponent<Projectile>().cost;
-	}
+
+        if (weaponModifierObject != null)
+        {
+            weaponModifier = weaponModifierObject.GetComponent<WeaponModifier>();
+            fireRate *= weaponModifier.fireRateMod;
+            cost *= weaponModifier.costMod;
+        }
+
+    }
 
     public virtual bool Fire (Transform shotSpawn, Reactor reactor)
     {
@@ -22,11 +31,31 @@ public class Weapon : MonoBehaviour {
             if (reactor.Drain(cost))
             {
                 nextFire = Time.time + fireRate;
-                Instantiate(projectileObject, shotSpawn.position, shotSpawn.rotation);
+
+                LaunchProjectile(shotSpawn);
+
                 return true;
             }
         }
 
         return false;
+    }
+
+    protected virtual void LaunchProjectile(Transform shotSpawn)
+    {
+        GameObject tempProjectile = Instantiate(projectileObject, shotSpawn.position, shotSpawn.rotation) as GameObject;
+
+        ApplyModifiers(tempProjectile);
+    }
+
+    protected virtual void ApplyModifiers(GameObject projectile)
+    {
+        if (weaponModifierObject != null)
+        {
+            weaponModifier = weaponModifierObject.GetComponent<WeaponModifier>();
+            projectile.GetComponent<Projectile>().damage *= weaponModifier.damageMod;
+            projectile.GetComponent<Projectile>().speed *= weaponModifier.speedMod;
+            projectile.transform.localScale.Scale(weaponModifier.sizeMod);
+        }
     }
 }

@@ -41,15 +41,24 @@ namespace Assets.Scripts
                 if (reactor.Drain(cost * numShots))
                 {
                     nextFire = Time.time + fireRate;
-                    foreach (var shotRotation in shotDirections)
-                    {
-                        Instantiate(projectileObject, shotSpawn.position, shotRotation);
-                    }
+
+                    LaunchProjectile(shotSpawn);
+                    
                     return true;
                 }
             }
 
             return false;
+        }
+
+        protected override void LaunchProjectile(Transform shotSpawn)
+        {
+            foreach (var shotRotation in shotDirections)
+            {
+                GameObject tempProjectile = Instantiate(projectileObject, shotSpawn.position, shotRotation) as GameObject;
+
+                ApplyModifiers(tempProjectile);
+            }
         }
     }
 }
