@@ -14,9 +14,12 @@ public class Projectile : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
     }
-	
-	void Update ()
+
+    void OnTriggerEnter(Collider other)
     {
-	
-	}
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<Enemy>().TakeDamage(damage);
+        }
+    }
 }
