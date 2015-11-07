@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         protected override void Start()
         {
-            //base.Start();
+            base.Start();
 
             reactors = new List<Reactor>();
 
@@ -39,9 +39,11 @@ namespace Assets.Scripts
                 {
                     foreach (var reactor in reactors)
                     {
-                        currentCharge += reactor.CurrentCharge;
-                        reactor.Drain(reactor.CurrentCharge);
-                        if (currentCharge > maximumCapacity)
+                        var toDrain = maximumCapacity - currentCharge;
+                        toDrain = reactor.CurrentCharge < toDrain ? reactor.CurrentCharge : toDrain;
+                        currentCharge += toDrain;
+                        reactor.Drain(toDrain);
+                        if (currentCharge >= maximumCapacity)
                         {
                             currentCharge = maximumCapacity;
                             break;
@@ -51,5 +53,22 @@ namespace Assets.Scripts
             }
         }
 
+
+        public override string ToString()
+        {
+            var s = base.ToString();
+
+            if (reactors.Count > 0)
+            {
+                s += " ( ";
+                foreach (var reactor in reactors)
+                {
+                    s += reactor.ToString() + " ";
+                }
+                s += ")";
+            }
+
+            return s;
+        }
     }
 }

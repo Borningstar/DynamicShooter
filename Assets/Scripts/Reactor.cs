@@ -30,7 +30,7 @@ public class Reactor : MonoBehaviour {
 
     public virtual bool Drain(float amount)
     {
-        if (amount < currentCharge)
+        if (amount <= currentCharge)
         {
             currentCharge -= amount;
             return true;
@@ -48,6 +48,6 @@ public class Reactor : MonoBehaviour {
 
     public override string ToString()
     {
-        return currentCharge.ToString();
+        return currentCharge.ToString("0.0");
     }
 }
