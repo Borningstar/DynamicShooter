@@ -34,17 +34,20 @@ namespace Assets.Scripts
             return directions;
         }
 
-        public override bool Fire(Transform shotSpawn, Reactor reactor)
+        public override bool Fire(Transform shotSpawn)
         {
-            if (Time.time > nextFire)
+            if (reactor != null)
             {
-                if (reactor.Drain(cost * numShots))
+                if (Time.time > nextFire)
                 {
-                    nextFire = Time.time + fireRate;
+                    if (reactor.Drain(cost * numShots))
+                    {
+                        nextFire = Time.time + fireRate;
 
-                    LaunchProjectile(shotSpawn);
-                    
-                    return true;
+                        LaunchProjectile(shotSpawn);
+
+                        return true;
+                    }
                 }
             }
 

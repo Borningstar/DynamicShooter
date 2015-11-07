@@ -21,14 +21,20 @@ public class ShipController : MonoBehaviour {
     
     void Start ()
     {
+        reactor = reactorSocket.GetComponent<Reactor>();
         weapons = new List<Weapon>();
         shield = shieldSocket.GetComponent<Shield>();
+        shield.ConnectReactor(reactor);
         rb = GetComponent<Rigidbody>();
-        reactor = reactorSocket.GetComponent<Reactor>();
 
         foreach(var weaponSocket in weaponSockets)
         {
             weapons.Add(weaponSocket.GetComponent<Weapon>());
+        }
+
+        foreach (var weapon in weapons)
+        {
+            weapon.ConnectReactor(reactor);
         }
     }
 	
@@ -42,7 +48,7 @@ public class ShipController : MonoBehaviour {
         {
             foreach(var weapon in weapons)
             {
-                weapon.Fire(transform, reactor);
+                weapon.Fire(transform);
             }
         }
 	}

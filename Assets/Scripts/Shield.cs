@@ -8,7 +8,6 @@ public class Shield : MonoBehaviour {
     public float rechageDelay;
     public float rechargeRate;
     public float rechargeCost;
-    public GameObject reactorObject;
 
     private float nextCharge;
     private float currentShield;
@@ -21,8 +20,7 @@ public class Shield : MonoBehaviour {
 
 	void Start ()
     {
-        reactor = reactorObject.GetComponent<Reactor>();
-        currentShield = maximumShield;	
+        currentShield = maximumShield;
 	}
 	
 	void Update ()
@@ -32,18 +30,22 @@ public class Shield : MonoBehaviour {
             currentShield = 0;
         }
 
-        if (Time.time > nextCharge && currentShield < maximumShield)
+        if (reactor != null)
         {
-            nextCharge = Time.time + rechargeRate;
-            if (reactor.Drain(rechargeCost))
+            if (Time.time > nextCharge && currentShield < maximumShield)
             {
-                currentShield += rechargeAmount;
-                if (currentShield > maximumShield)
+                nextCharge = Time.time + rechargeRate;
+                if (reactor.Drain(rechargeCost))
                 {
-                    currentShield = maximumShield;
+                    currentShield += rechargeAmount;
+                    if (currentShield > maximumShield)
+                    {
+                        currentShield = maximumShield;
+                    }
                 }
             }
         }
+
     }
 
     //return left over damage if shield goes into damage, else 0
@@ -67,5 +69,10 @@ public class Shield : MonoBehaviour {
     public override string ToString()
     {
         return currentShield.ToString();
+    }
+
+    public void ConnectReactor(Reactor reactor)
+    {
+        this.reactor = reactor;
     }
 }

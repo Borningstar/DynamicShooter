@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour {
     protected float cost;
     protected float nextFire;
     protected WeaponModifier weaponModifier;
+    protected Reactor reactor;
 
 	protected virtual void Start ()
     {
@@ -24,17 +25,25 @@ public class Weapon : MonoBehaviour {
 
     }
 
-    public virtual bool Fire (Transform shotSpawn, Reactor reactor)
+    public void ConnectReactor(Reactor reactor)
     {
-        if (Time.time > nextFire)
+        this.reactor = reactor;
+    }
+
+    public virtual bool Fire (Transform shotSpawn)
+    {
+        if (reactor != null)
         {
-            if (reactor.Drain(cost))
+            if (Time.time > nextFire)
             {
-                nextFire = Time.time + fireRate;
+                if (reactor.Drain(cost))
+                {
+                    nextFire = Time.time + fireRate;
 
-                LaunchProjectile(shotSpawn);
+                    LaunchProjectile(shotSpawn);
 
-                return true;
+                    return true;
+                }
             }
         }
 
