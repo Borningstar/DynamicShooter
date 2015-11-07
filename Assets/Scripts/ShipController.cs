@@ -5,18 +5,24 @@ using System.Collections.Generic;
 public class ShipController : MonoBehaviour {
 
     public float speed;
+    public float hull;
     public GameObject reactorSocket;
     public GameObject[] weaponSockets;
+    public GameObject shieldSocket;
     public GUIText reactorText;
+    public GUIText shieldText;
+    public GUIText hullText;
 
     private Reactor reactor;
     private Rigidbody rb;
     private List<Weapon> weapons;
+    private Shield shield;
+    private const float COLLISION_DAMAGE = 10;
     
     void Start ()
     {
         weapons = new List<Weapon>();
-
+        shield = shieldSocket.GetComponent<Shield>();
         rb = GetComponent<Rigidbody>();
         reactor = reactorSocket.GetComponent<Reactor>();
 
@@ -28,7 +34,9 @@ public class ShipController : MonoBehaviour {
 	
 	void Update ()
     {
-        reactorText.text = reactor.CurrentCharge.ToString();
+        reactorText.text = reactor.ToString();
+        shieldText.text = shield.ToString();
+        hullText.text = hull.ToString();
 
         if (Input.GetButton("Fire1"))
         {
@@ -39,6 +47,23 @@ public class ShipController : MonoBehaviour {
         }
 	}
 
+    public void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("Enemy"))
+        {
+            collider.GetComponent<Enemy>().TakeDamage(COLLISION_DAMAGE);
+            if (shield.CurrentShield > 0)
+            {
+                shield.TakeDamage(shield.CurrentShield);
+            }
+            else
+            {
+                hull = 0;
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         var moveHorizontal = Input.GetAxis("Horizontal");
@@ -47,5 +72,19 @@ public class ShipController : MonoBehaviour {
         var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.velocity = movement * speed;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        var remaining = shield.TakeDamage(damage);
+
+        if (shield.CurrentShield < 0)
+        {
+            hull -= remaining;
+            if (hull <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

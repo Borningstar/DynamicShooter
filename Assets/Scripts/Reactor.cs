@@ -45,4 +45,9 @@ public class Reactor : MonoBehaviour {
             return currentCharge;
         }
     }
+
+    public override string ToString()
+    {
+        return currentCharge.ToString();
+    }
 }
