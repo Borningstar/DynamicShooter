@@ -5,16 +5,20 @@ using System.Collections.Generic;
 public class ShipController : MonoBehaviour {
 
     public float speed;
-    public float hull;
+
     public GameObject reactorSocket;
     public GameObject[] weaponSockets;
     public GameObject shieldSocket;
+    public GameObject hullSocket;
+
     public GUIText reactorText;
     public GUIText shieldText;
     public GUIText hullText;
 
-    private Reactor reactor;
     private Rigidbody rb;
+
+    private Reactor reactor;
+    private Hull hull;
     private List<Weapon> weapons;
     private Shield shield;
     private const float COLLISION_DAMAGE = 10;
@@ -22,6 +26,7 @@ public class ShipController : MonoBehaviour {
     void Start ()
     {
         reactor = reactorSocket.GetComponent<Reactor>();
+        hull = hullSocket.GetComponent<Hull>();
         weapons = new List<Weapon>();
         shield = shieldSocket.GetComponent<Shield>();
         shield.ConnectReactor(reactor);
@@ -64,7 +69,6 @@ public class ShipController : MonoBehaviour {
             }
             else
             {
-                hull = 0;
                 Destroy(this.gameObject);
             }
         }
@@ -86,8 +90,7 @@ public class ShipController : MonoBehaviour {
 
         if (shield.CurrentShield < 0)
         {
-            hull -= remaining;
-            if (hull <= 0)
+            if (!hull.DealDamage(remaining))
             {
                 Destroy(this.gameObject);
             }

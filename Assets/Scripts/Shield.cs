@@ -68,7 +68,7 @@ public class Shield : MonoBehaviour {
 
     public override string ToString()
     {
-        return currentShield.ToString();
+        return currentShield.ToString("0.0");
     }
 
     public void ConnectReactor(Reactor reactor)
