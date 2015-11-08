@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour {
         rb.velocity = transform.forward * speed;
     }
 
-    public bool TakeDamage(float damage)
+    public bool DealDamage(float damage)
     {
         health -= damage;
 

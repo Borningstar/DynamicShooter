@@ -58,7 +58,7 @@ namespace Assets.Scripts
         {
             foreach (var shotRotation in shotDirections)
             {
-                GameObject tempProjectile = Instantiate(projectileObject, shotSpawn.position, shotRotation) as GameObject;
+                GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, shotRotation) as GameObject;
 
                 ApplyModifiers(tempProjectile);
             }

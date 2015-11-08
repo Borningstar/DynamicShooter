@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class Ammo : MonoBehaviour {
 
     public float cost;
     public float speed;
@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour {
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<Enemy>().TakeDamage(damage);
+            other.GetComponent<Enemy>().DealDamage(damage);
         }
     }
 }

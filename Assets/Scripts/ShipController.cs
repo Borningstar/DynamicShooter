@@ -6,36 +6,23 @@ public class ShipController : MonoBehaviour {
 
     public float speed;
 
-    public GameObject reactorSocket;
-    public GameObject[] weaponSockets;
-    public GameObject shieldSocket;
-    public GameObject hullSocket;
-
     public GUIText reactorText;
     public GUIText shieldText;
     public GUIText hullText;
 
+    public Reactor reactor;
+    public Hull hull;
+    public List<Weapon> weapons;
+    public Shield shield;
+
     private Rigidbody rb;
 
-    private Reactor reactor;
-    private Hull hull;
-    private List<Weapon> weapons;
-    private Shield shield;
     private const float COLLISION_DAMAGE = 10;
     
     void Start ()
     {
-        reactor = reactorSocket.GetComponent<Reactor>();
-        hull = hullSocket.GetComponent<Hull>();
-        weapons = new List<Weapon>();
-        shield = shieldSocket.GetComponent<Shield>();
         shield.ConnectReactor(reactor);
         rb = GetComponent<Rigidbody>();
-
-        foreach(var weaponSocket in weaponSockets)
-        {
-            weapons.Add(weaponSocket.GetComponent<Weapon>());
-        }
 
         foreach (var weapon in weapons)
         {
@@ -45,9 +32,9 @@ public class ShipController : MonoBehaviour {
 	
 	void Update ()
     {
-        reactorText.text = reactor.ToString();
-        shieldText.text = shield.ToString();
-        hullText.text = hull.ToString();
+        reactorText.text = "Reactor: " + reactor.ToString();
+        shieldText.text = "Shield: " + shield.ToString();
+        hullText.text = "Hull: " + hull.ToString();
 
         if (Input.GetButton("Fire1"))
         {
@@ -62,10 +49,10 @@ public class ShipController : MonoBehaviour {
     {
         if (collider.CompareTag("Enemy"))
         {
-            collider.GetComponent<Enemy>().TakeDamage(COLLISION_DAMAGE);
+            collider.GetComponent<Enemy>().DealDamage(COLLISION_DAMAGE);
             if (shield.CurrentShield > 0)
             {
-                shield.TakeDamage(shield.CurrentShield);
+                shield.DealDamage(shield.CurrentShield);
             }
             else
             {
@@ -84,9 +71,9 @@ public class ShipController : MonoBehaviour {
         rb.velocity = movement * speed;
     }
 
-    public void TakeDamage(float damage)
+    public void DealDamage(float damage)
     {
-        var remaining = shield.TakeDamage(damage);
+        var remaining = shield.DealDamage(damage);
 
         if (shield.CurrentShield < 0)
         {

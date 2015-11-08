@@ -8,21 +8,11 @@ namespace Assets.Scripts
 {
     class MultiReactor : Reactor
     {
-        public GameObject[] reactorSockets;
-
-        private List<Reactor> reactors;
+        public List<Reactor> reactors;
 
         protected override void Start()
         {
             base.Start();
-
-            reactors = new List<Reactor>();
-
-            foreach(var reactorSocket in reactorSockets)
-            {
-                var reactor = reactorSocket.GetComponent<Reactor>();
-                reactors.Add(reactor);
-            }
         }
 
         protected override void Update()

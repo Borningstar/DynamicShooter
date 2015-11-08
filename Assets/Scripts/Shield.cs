@@ -49,7 +49,7 @@ public class Shield : MonoBehaviour {
     }
 
     //return left over damage if shield goes into damage, else 0
-    public float TakeDamage(float damage)
+    public float DealDamage(float damage)
     {
         currentShield -= damage;
 

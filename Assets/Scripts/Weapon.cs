@@ -3,22 +3,21 @@ using System.Collections;
 
 public class Weapon : MonoBehaviour {
 
-    public GameObject projectileObject;
-    public GameObject weaponModifierObject;
+    public GameObject ammo;
+    public WeaponModifier weaponModifier;
+
     public float fireRate;
 
     protected float cost;
     protected float nextFire;
-    protected WeaponModifier weaponModifier;
     protected Reactor reactor;
 
 	protected virtual void Start ()
     {
-        cost = projectileObject.GetComponent<Projectile>().cost;
+        cost = ammo.GetComponent<Ammo>().cost;
 
-        if (weaponModifierObject != null)
+        if (weaponModifier != null)
         {
-            weaponModifier = weaponModifierObject.GetComponent<WeaponModifier>();
             fireRate *= weaponModifier.fireRateMod;
             cost *= weaponModifier.costMod;
         }
@@ -52,20 +51,19 @@ public class Weapon : MonoBehaviour {
 
     protected virtual void LaunchProjectile(Transform shotSpawn)
     {
-        GameObject tempProjectile = Instantiate(projectileObject, shotSpawn.position, shotSpawn.rotation) as GameObject;
+        GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, shotSpawn.rotation) as GameObject;
 
         ApplyModifiers(tempProjectile);
     }
 
     protected virtual void ApplyModifiers(GameObject projectile)
     {
-        if (weaponModifierObject != null)
+        if (weaponModifier != null)
         {
-            weaponModifier = weaponModifierObject.GetComponent<WeaponModifier>();
-            projectile.GetComponent<Projectile>().damage *= weaponModifier.damageMod;
+            projectile.GetComponent<Ammo>().damage *= weaponModifier.damageMod;
             var oldScale = projectile.transform.localScale;
             projectile.transform.localScale = Vector3.Scale(weaponModifier.sizeMod, oldScale);
-            projectile.GetComponent<Projectile>().speed *= weaponModifier.speedMod;
+            projectile.GetComponent<Ammo>().speed *= weaponModifier.speedMod;
         }
     }
 }
