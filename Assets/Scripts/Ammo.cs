@@ -21,6 +21,7 @@ public class Ammo : MonoBehaviour {
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().DealDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Assets.Scripts.Enemy
             if (other.CompareTag("Player"))
             {
                 other.GetComponent<ShipController>().DealDamage(damage);
+                Destroy(gameObject);
             }
         }
     }
