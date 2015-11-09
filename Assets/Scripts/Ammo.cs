@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Enemy;
 
 public class Ammo : MonoBehaviour {
 

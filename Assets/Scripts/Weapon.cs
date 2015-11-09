@@ -21,7 +21,6 @@ public class Weapon : MonoBehaviour {
             fireRate *= weaponModifier.fireRateMod;
             cost *= weaponModifier.costMod;
         }
-
     }
 
     public void ConnectReactor(Reactor reactor)
@@ -45,7 +44,6 @@ public class Weapon : MonoBehaviour {
                 }
             }
         }
-
         return false;
     }
 
