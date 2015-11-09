@@ -76,10 +76,11 @@ public class ShipController : MonoBehaviour {
     {
         var remaining = shield.DealDamage(damage);
 
-        if (shield.CurrentShield < 0)
+        if (shield.CurrentShield <= 0)
         {
             if (!hull.DealDamage(remaining))
             {
+                hullText.text = "Hull: " + hull.ToString();
                 Destroy(this.gameObject);
             }
         }

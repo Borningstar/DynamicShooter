@@ -22,10 +22,11 @@ public class Hull : MonoBehaviour
     //Returns false when hull destroyed
     public bool DealDamage(float damage)
     {
-        maximumHull -= currentHull;
+        currentHull -= damage;
 
         if (currentHull <= 0)
         {
+            currentHull = 0;
             return false;
         }
         return true;
