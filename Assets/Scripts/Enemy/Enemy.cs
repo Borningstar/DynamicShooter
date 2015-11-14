@@ -9,7 +9,7 @@ namespace Assets.Scripts.Enemy
 
         public float speed;
         public float health;
-        public List<EnemyWeapon> weapons;
+        public List<GameObject> weapons;
 
         private Rigidbody rb;
 
@@ -17,6 +17,8 @@ namespace Assets.Scripts.Enemy
         {
             rb = GetComponent<Rigidbody>();
             rb.velocity = transform.forward * speed;
+
+            //weapons[0].GetComponent<EnemyWeapon>().Start();
         }
 
         public bool DealDamage(float damage)

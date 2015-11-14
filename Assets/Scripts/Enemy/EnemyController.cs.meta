@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-guid: d14e98b0f6afa11458cca2505b3eb470
-timeCreated: 1447482295
+guid: e7fb0b96c7bf0fc4ea1e70c451256aeb
+timeCreated: 1447155745
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - ammo: {instanceID: 0}
-  - weaponModifier: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

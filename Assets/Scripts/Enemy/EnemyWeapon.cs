@@ -14,7 +14,7 @@ namespace Assets.Scripts.Enemy
             InvokeRepeating("Fire", delay, fireRate);
         }
 
-        public virtual void Fire()
+        protected virtual void Fire()
         { 
             LaunchProjectile();
         }
