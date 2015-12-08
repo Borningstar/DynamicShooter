@@ -8,10 +8,11 @@ namespace Assets.Scripts.Enemy
         public GameObject ammo;
         public float fireRate;
         public float delay;
+        public float variance;
 
         void Start()
         {
-            InvokeRepeating("Fire", delay, fireRate);
+            InvokeRepeating("Fire", delay + Random.Range(0, variance), fireRate + Random.Range(0, variance));
         }
 
         protected virtual void Fire()
