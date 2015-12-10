@@ -44,7 +44,7 @@ public class ShipController : MonoBehaviour {
                 weapon.Fire(transform);
             }
         }
-	}
+    }
 
     public void OnTriggerEnter(Collider collider)
     {
