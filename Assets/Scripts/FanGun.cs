@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-
-namespace Assets.Scripts
+﻿namespace Assets.Scripts
 {
-    class FanGun : Weapon
+    using System.Collections.Generic;
+    using UnityEngine;
+
+    public sealed class FanGun : Weapon
     {
         public int numShots;
         public int angle;

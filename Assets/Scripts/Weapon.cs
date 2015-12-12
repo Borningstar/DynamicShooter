@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Weapon : MonoBehaviour {
 
@@ -49,7 +48,7 @@ public class Weapon : MonoBehaviour {
 
     protected virtual void LaunchProjectile(Transform shotSpawn)
     {
-        GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, shotSpawn.rotation) as GameObject;
+        GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, Quaternion.Euler(0.0f, 0.0f, 0.0f)) as GameObject;
 
         ApplyModifiers(tempProjectile);
     }

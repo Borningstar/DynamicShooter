@@ -12,6 +12,8 @@ public class ShipAnimator : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(animator.GetInteger("Direction"));
+
         var horizontal = Input.GetAxis("Horizontal");
 
         animator.SetInteger("Direction", 1);

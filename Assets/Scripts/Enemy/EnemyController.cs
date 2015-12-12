@@ -11,17 +11,9 @@ public class EnemyController : MonoBehaviour {
     public float startWait;
     public float waveWait;
 
-    // Use this for initialization
     void Start () {
-
         StartCoroutine(SpawnWaves());
-
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     IEnumerator SpawnWaves()
     {
