@@ -13,7 +13,8 @@ public class ShipController : MonoBehaviour {
 
     public Reactor reactor;
     public Hull hull;
-    public List<Weapon> weapons;
+    public List<Weapon> weaponGroup;
+    public List<Weapon> weaponGroupSecondary;
     public Shield shield;
 
     private Rigidbody rb;
@@ -25,7 +26,12 @@ public class ShipController : MonoBehaviour {
         shield.ConnectReactor(reactor);
         rb = GetComponent<Rigidbody>();
 
-        foreach (var weapon in weapons)
+        foreach (var weapon in weaponGroup)
+        {
+            weapon.ConnectReactor(reactor);
+        }
+
+        foreach (var weapon in weaponGroupSecondary)
         {
             weapon.ConnectReactor(reactor);
         }
@@ -39,7 +45,15 @@ public class ShipController : MonoBehaviour {
 
         if (Input.GetButton("Fire1"))
         {
-            foreach(var weapon in weapons)
+            foreach(var weapon in weaponGroup)
+            {
+                weapon.Fire(transform);
+            }
+        }
+
+        if (Input.GetButton("Fire2"))
+        {
+            foreach (var weapon in weaponGroupSecondary)
             {
                 weapon.Fire(transform);
             }
