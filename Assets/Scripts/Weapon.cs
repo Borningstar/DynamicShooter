@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour {
-
+public class Weapon : Component
+{
     public GameObject ammo;
     public WeaponModifier weaponModifier;
 
@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour {
         this.reactor = reactor;
     }
 
-    public virtual bool Fire (Transform shotSpawn)
+    public virtual bool Fire ()
     {
         if (reactor != null)
         {
@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour {
                 {
                     nextFire = Time.time + fireRate;
 
-                    LaunchProjectile(shotSpawn);
+                    LaunchProjectile();
 
                     return true;
                 }
@@ -46,9 +46,9 @@ public class Weapon : MonoBehaviour {
         return false;
     }
 
-    protected virtual void LaunchProjectile(Transform shotSpawn)
+    protected virtual void LaunchProjectile()
     {
-        GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, Quaternion.Euler(0.0f, 0.0f, 0.0f)) as GameObject;
+        GameObject tempProjectile = Instantiate(ammo, this.transform.position, Quaternion.Euler(0.0f, 0.0f, 0.0f)) as GameObject;
 
         ApplyModifiers(tempProjectile);
     }

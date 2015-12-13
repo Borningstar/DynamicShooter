@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Reactor : MonoBehaviour {
+public class Reactor : Component {
 
     public float maximumCapacity;
     public float rechargeRate;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponModifier : MonoBehaviour
+public class WeaponModifier : Component
 {
     public float damageMod;
     public float speedMod;

@@ -31,7 +31,7 @@
             return directions;
         }
 
-        public override bool Fire(Transform shotSpawn)
+        public override bool Fire()
         {
             if (reactor != null)
             {
@@ -41,7 +41,7 @@
                     {
                         nextFire = Time.time + fireRate;
 
-                        LaunchProjectile(shotSpawn);
+                        LaunchProjectile();
 
                         return true;
                     }
@@ -51,11 +51,11 @@
             return false;
         }
 
-        protected override void LaunchProjectile(Transform shotSpawn)
+        protected override void LaunchProjectile()
         {
             foreach (var shotRotation in shotDirections)
             {
-                GameObject tempProjectile = Instantiate(ammo, shotSpawn.position, shotRotation) as GameObject;
+                GameObject tempProjectile = Instantiate(ammo, this.transform.position, shotRotation) as GameObject;
 
                 ApplyModifiers(tempProjectile);
             }

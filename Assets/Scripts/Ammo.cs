@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Enemy;
 
-public class Ammo : MonoBehaviour {
+public class Ammo : Component {
 
     public float cost;
     public float speed;
