@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enemy;
+using Assets.Scripts.Mounts;
 
 public class ShipController : MonoBehaviour {
 
@@ -15,11 +16,10 @@ public class ShipController : MonoBehaviour {
     public GUIText shieldText;
     public GUIText hullText;
 
-    public Reactor reactor;
+    public ReactorMount reactorMount;
+
     public Reactor baseReactor;
     public Hull hull;
-    //public Weapon[] weaponGroup = new Weapon[WEAPON_GROUP_SIZE];
-    //public Weapon[] weaponGroupSecondary = new Weapon[WEAPON_GROUP_SECONDARY_SIZE];
 
     public WeaponMount[] mountGroup;
     public WeaponMount[] mountGroupSecondary;
@@ -30,57 +30,56 @@ public class ShipController : MonoBehaviour {
     
     void Start ()
     {
-        shield.ConnectReactor(reactor);
-        rb = GetComponent<Rigidbody>();
+        this.rb = this.GetComponent<Rigidbody>();
 
-        reactor = null;
-
-        if (reactor == null)
+        if (this.reactorMount.mounted == null)
         {
-            reactor = baseReactor;
+            this.reactorMount.mounted = this.baseReactor;
         }
 
-        foreach (var mount in mountGroup)
+        this.shield.ConnectReactor(reactorMount.mounted);
+
+        foreach (var mount in this.mountGroup)
         {
-            if (mount.weapon != null)
+            if (mount.mounted != null)
             {
-                mount.weapon.ConnectReactor(reactor);
+                mount.mounted.ConnectReactor(this.reactorMount.mounted);
             }
         }
 
-        foreach (var mount in mountGroupSecondary)
+        foreach (var mount in this.mountGroupSecondary)
         {
-            if (mount.weapon != null)
+            if (mount.mounted != null)
             {
-                mount.weapon.ConnectReactor(reactor);
+                mount.mounted.ConnectReactor(this.reactorMount.mounted);
             }
         }
     }
 	
 	void Update ()
     {
-        reactorText.text = "Reactor: " + reactor.ToString();
-        shieldText.text = "Shield: " + shield.ToString();
-        hullText.text = "Hull: " + hull.ToString();
+        this.reactorText.text = "Reactor: " + this.reactorMount.mounted.ToString();
+        this.shieldText.text = "Shield: " + this.shield.ToString();
+        this.hullText.text = "Hull: " + this.hull.ToString();
 
         if (Input.GetButton("Fire1"))
         {
-            foreach (var mount in mountGroup)
+            foreach (var mount in this.mountGroup)
             {
-                if (mount.weapon != null)
+                if (mount.mounted != null)
                 {
-                    mount.weapon.Fire();
+                    mount.mounted.Fire();
                 }
             }
         }
 
         if (Input.GetButton("Fire2"))
         {
-            foreach (var mount in mountGroupSecondary)
+            foreach (var mount in this.mountGroupSecondary)
             {
-                if (mount.weapon != null)
+                if (mount.mounted != null)
                 {
-                    mount.weapon.Fire();
+                    mount.mounted.Fire();
                 }
             }
         }
@@ -90,9 +89,9 @@ public class ShipController : MonoBehaviour {
     {
         var components = new List<Component>();
 
-        if (this.reactor != null)
+        if (this.reactorMount != null)
         {
-            components.Add(this.reactor);
+            components.Add(this.reactorMount.mounted);
         }
 
         if (this.shield != null)
@@ -108,28 +107,28 @@ public class ShipController : MonoBehaviour {
         return components;
     }
 
-    public List<WeaponMount> GetWeaponMounts()
+    public List<Mount> GetWeaponMounts()
     {
-        var weaponMounts = new List<WeaponMount>();
+        var weaponMounts = new List<Mount>();
 
-        weaponMounts.AddRange(mountGroup);
-        weaponMounts.AddRange(mountGroupSecondary);
+        weaponMounts.AddRange(this.mountGroup);
+        weaponMounts.AddRange(this.mountGroupSecondary);
 
         return weaponMounts;
     }
 
     public Reactor DetachReactor()
     {
-        var thisReactor = reactor;
+        var reactor = this.reactorMount.mounted;
 
-        reactor = null;
+        this.reactorMount = null;
 
-        return thisReactor;
+        return reactor;
     }
 
     private void MountReactor(Reactor reactor)
     {
-
+        this.reactorMount.mounted = reactor;
     }
 
     public void OnTriggerEnter(Collider collider)
@@ -137,9 +136,9 @@ public class ShipController : MonoBehaviour {
         if (collider.CompareTag("Enemy"))
         {
             collider.GetComponent<Enemy>().DealDamage(COLLISION_DAMAGE);
-            if (shield.CurrentShield > 0)
+            if (this.shield.CurrentShield > 0)
             {
-                shield.DealDamage(shield.CurrentShield);
+                this.shield.DealDamage(this.shield.CurrentShield);
             }
             else
             {
@@ -155,18 +154,18 @@ public class ShipController : MonoBehaviour {
 
         var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        rb.velocity = movement * speed;
+        this.rb.velocity = movement * this.speed;
     }
 
     public void DealDamage(float damage)
     {
-        var remaining = shield.DealDamage(damage);
+        var remaining = this.shield.DealDamage(damage);
 
-        if (shield.CurrentShield <= 0)
+        if (this.shield.CurrentShield <= 0)
         {
-            if (!hull.DealDamage(remaining))
+            if (!this.hull.DealDamage(remaining))
             {
-                hullText.text = "Hull: " + hull.ToString();
+                this.hullText.text = "Hull: " + this.hull.ToString();
                 Destroy(this.gameObject);
             }
         }
