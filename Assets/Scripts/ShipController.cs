@@ -23,7 +23,6 @@ public class ShipController : MonoBehaviour {
 
     public WeaponMount[] mountGroup;
     public WeaponMount[] mountGroupSecondary;
-    public int weaponGroupSecondarySize;
     public Shield shield;
 
     private Rigidbody rb;

@@ -5,6 +5,6 @@ namespace Assets.Scripts.Mounts
 {
     public sealed class WeaponMount : Mount
     {
-        public Weapon mounted;
+        public Assets.Scripts.Components.Weapon mounted;
     }
 }
