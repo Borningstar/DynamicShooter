@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Components.Weapons
 {
     using System.Collections.Generic;
     using UnityEngine;
@@ -9,7 +9,7 @@
         public int angle;
 
         private List<Quaternion> shotDirections;
-        
+
         protected override void Start()
         {
             base.Start();
@@ -20,10 +20,10 @@
         private List<Quaternion> CalculateDirections()
         {
             float segment = angle / (numShots - 1);
-            float adjustment = angle / 2 ;
+            float adjustment = angle / 2;
             List<Quaternion> directions = new List<Quaternion>();
 
-            for(int i = 0; i < numShots; i++)
+            for (int i = 0; i < numShots; i++)
             {
                 directions.Add(Quaternion.Euler(0.0f, segment * i - adjustment, 0.0f));
             }

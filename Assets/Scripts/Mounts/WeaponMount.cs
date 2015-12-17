@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
-
-namespace Assets.Scripts.Mounts
+﻿namespace Assets.Scripts.Mounts
 {
+    using Assets.Scripts.Components.Weapons;
+
     public sealed class WeaponMount : Mount
     {
-        public Assets.Scripts.Components.Weapon mounted;
+        public Weapon mounted;
     }
 }

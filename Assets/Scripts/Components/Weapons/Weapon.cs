@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Components
+﻿namespace Assets.Scripts.Components.Weapons
 {
     using UnityEngine;
 
@@ -39,7 +39,7 @@
 
         protected virtual void Start()
         {
-            cost = ammo.GetComponent<Ammo>().cost;
+            cost = ammo.GetComponent<Projectile>().cost;
 
             if (weaponModifier != null)
             {
@@ -83,10 +83,10 @@
         {
             if (weaponModifier != null)
             {
-                projectile.GetComponent<Ammo>().damage *= weaponModifier.damageMod;
+                projectile.GetComponent<Projectile>().damage *= weaponModifier.damageMod;
                 var oldScale = projectile.transform.localScale;
                 projectile.transform.localScale = Vector3.Scale(weaponModifier.sizeMod, oldScale);
-                projectile.GetComponent<Ammo>().speed *= weaponModifier.speedMod;
+                projectile.GetComponent<Projectile>().speed *= weaponModifier.speedMod;
             }
         }
     }
