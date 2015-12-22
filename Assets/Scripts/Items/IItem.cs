@@ -2,8 +2,8 @@
 {
     public interface IItem
     {
-        string Type { get; set; }
-        string Prefix { get; set; }
-        string Suffix { get; set; }
+        string Type { get; }
+        string Prefix { get; }
+        string Suffix { get; }
     }
 }

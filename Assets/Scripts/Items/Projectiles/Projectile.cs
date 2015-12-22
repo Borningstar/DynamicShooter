@@ -4,36 +4,18 @@
 
     public class Projectile : Item, IProjectile
     {
-        [SerializeField]
-        protected float cost;
-        public float Cost
-        {
-            get { return cost; }
-            set { cost = value; }
-        }
+        public float Cost { get; protected set; }
 
-        [SerializeField]
-        protected float speed;
-        public float Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
+        public float Speed { get; set; }
 
-        [SerializeField]
-        protected float damage;
-        public float Damage
-        {
-            get { return damage; }
-            set { damage = value; }
-        }
+        public float Damage { get; set; }
 
         private Rigidbody rb;
 
         void Start()
         {
             rb = GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * speed;
+            rb.velocity = transform.forward * Speed;
         }
 
         void OnTriggerEnter(Collider other)

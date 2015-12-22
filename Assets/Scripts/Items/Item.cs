@@ -4,25 +4,10 @@
 
     public class Item : BetterBehaviour, IItem
     {
-        protected string type;
-        public string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        public string Type { get; protected set; }
 
-        protected string prefix;
-        public string Prefix
-        {
-            get { return prefix; }
-            set { prefix = value; }
-        }
+        public string Prefix { get; protected set; }
 
-        protected string suffix;
-        public string Suffix
-        {
-            get { return suffix; }
-            set { suffix = value;}
-        }
+        public string Suffix { get; protected set; }
     }
 }

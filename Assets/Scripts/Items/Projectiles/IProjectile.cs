@@ -2,7 +2,7 @@
 {
     public interface IProjectile
     {
-        float Cost { get; set; }
+        float Cost { get; }
         float Speed { get; set;  }
         float Damage { get; set; }
     }
