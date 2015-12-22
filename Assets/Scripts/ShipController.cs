@@ -4,6 +4,7 @@ using Assets.Scripts.Enemy;
 using Assets.Scripts.Mounts;
 using Assets.Scripts.Items.Reactors;
 using Assets.Scripts.Items;
+using Assets.Scripts.Items.Shields;
 
 public class ShipController : MonoBehaviour {
 

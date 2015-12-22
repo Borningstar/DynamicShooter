@@ -14,10 +14,12 @@
 
         private float nextCharge;
         private Reactor reactor;
+        private bool applyDelay;
 
         void Start()
         {
             CurrentShield = MaximumShield;
+            applyDelay = false;
         }
 
         void Update()
@@ -31,7 +33,9 @@
             {
                 if (Time.time > nextCharge && CurrentShield < MaximumShield)
                 {
-                    nextCharge = Time.time + RechargeRate;
+                    nextCharge = Time.time + RechargeRate + (applyDelay ? RechageDelay : 0);
+                    applyDelay = false;
+
                     if (reactor.Drain(RechargeCost))
                     {
                         CurrentShield += RechargeAmount;
@@ -48,9 +52,9 @@
         //return left over damage if shield goes into damage, else 0
         public float DealDamage(float damage)
         {
-            CurrentShield -= damage;
+            var remaining = 0.0f;
 
-            float remaining = 0.0f;
+            CurrentShield -= damage;
 
             if (CurrentShield < 0)
             {
@@ -58,7 +62,7 @@
                 CurrentShield = 0;
             }
 
-            nextCharge = RechageDelay;
+            applyDelay = true;
 
             return remaining;
         }
