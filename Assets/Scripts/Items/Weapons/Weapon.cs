@@ -3,11 +3,12 @@
     using Reactors;
     using Projectiles;
     using UnityEngine;
+    using Modifiers;
 
     public class Weapon : Item, IWeapon
     {
         public GameObject Ammo { get; set; }
-        public WeaponModifier WeaponModifier { get; set; }
+        public IModifier Modifier { get; set; }
         public float FireRate { get; protected set; }
 
         protected float cost;
@@ -20,9 +21,9 @@
             {
                 LoadAmmo(Ammo);
 
-                if (WeaponModifier != null)
+                if (Modifier != null)
                 {
-                    LoadModifier(WeaponModifier);
+                    LoadModifier(Modifier);
                 }
             }
         }
@@ -33,11 +34,11 @@
             cost = Ammo.GetComponent<Projectile>().Cost;
         }
 
-        public virtual void LoadModifier(WeaponModifier weaponModifier)
+        public virtual void LoadModifier(IModifier modifier)
         {
-            WeaponModifier = weaponModifier;
-            FireRate *= WeaponModifier.fireRateMod;
-            cost *= WeaponModifier.costMod;
+            Modifier = modifier;
+            FireRate *= Modifier.FireRateMod;
+            cost *= Modifier.CostMod;
         }
 
         public void ConnectReactor(Reactor reactor)
@@ -73,12 +74,12 @@
 
         protected virtual void ApplyModifiers(GameObject projectile)
         {
-            if (WeaponModifier != null)
+            if (Modifier != null)
             {
-                projectile.GetComponent<Projectile>().Damage *= WeaponModifier.damageMod;
+                projectile.GetComponent<Projectile>().Damage *= Modifier.DamageMod;
                 var oldScale = projectile.transform.localScale;
-                projectile.transform.localScale = Vector3.Scale(WeaponModifier.sizeMod, oldScale);
-                projectile.GetComponent<Projectile>().Speed *= WeaponModifier.speedMod;
+                projectile.transform.localScale = Vector3.Scale(Modifier.SizeMod, oldScale);
+                projectile.GetComponent<Projectile>().Speed *= Modifier.SpeedMod;
             }
         }
     }
