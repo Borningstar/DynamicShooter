@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Component> inventory;
+    public List<Item> inventory;
 
-    public void AddItem(Component item)
+    public void AddItem(Item item)
     {
         inventory.Add(item);
     }
 
-    public Component TakeItem(int index)
+    public Item TakeItem(int index)
     {
         return inventory[index];
     }

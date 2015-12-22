@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Items.Reactors;
 
-public class Shield : Component {
+public class Shield : Item {
 
     public float maximumShield;
     public float rechargeAmount;

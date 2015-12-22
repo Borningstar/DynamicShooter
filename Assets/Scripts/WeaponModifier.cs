@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponModifier : Component
+public class WeaponModifier : Item
 {
     public float damageMod;
     public float speedMod;

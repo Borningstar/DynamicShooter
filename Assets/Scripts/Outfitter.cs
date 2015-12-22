@@ -11,12 +11,12 @@ public class Outfitter : MonoBehaviour
 
     }
 
-	private Component CheckMount(ComponentType type)
+	private Item CheckMount(ComponentType type)
     {
         return null;
     }
 
-    private Component RemoveComponent(ComponentType type)
+    private Item RemoveComponent(ComponentType type)
     {
         switch(type)
         {
@@ -31,18 +31,18 @@ public class Outfitter : MonoBehaviour
         return null;
     }
 
-    private Component RemoveWeapon()
+    private Item RemoveWeapon()
     {
         return null;
     }
 
-    private bool MountComponent(Component component)
+    private bool MountComponent(Item component)
     {
 
         return true;
     }
 
-    private bool MountWeapon(Component component)
+    private bool MountWeapon(Item component)
     {
 
         return true;

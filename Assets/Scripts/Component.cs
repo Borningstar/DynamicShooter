@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Component : MonoBehaviour {
+public abstract class Item : MonoBehaviour {
 
     public string type;
     public string prefix;

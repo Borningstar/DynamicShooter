@@ -1,9 +1,12 @@
 ﻿namespace Assets.Scripts.Mounts
 {
-    using Assets.Scripts.Components.Weapons;
+    using Items.Weapons;
 
     public sealed class WeaponMount : Mount
     {
-        public Weapon mounted;
+        public IWeapon Mounted
+        {
+            get; set;
+        }
     }
 }

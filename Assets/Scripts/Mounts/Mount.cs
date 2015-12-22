@@ -1,9 +1,19 @@
 ﻿namespace Assets.Scripts.Mounts
 {
-    using UnityEngine;
+    using System;
+    using Items;
+    using Vexe.Runtime.Types;
 
-    public abstract class Mount : MonoBehaviour
+    public class Mount : BetterBehaviour, IMount
     {
-        public string mountName;
+        public string MountName
+        {
+            get; set;
+        }
+
+        public IItem Mounted
+        {
+            get; set;
+        }
     }
 }

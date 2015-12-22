@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hull : Component
+public class Hull : Item
 {
 
     public float maximumHull;
