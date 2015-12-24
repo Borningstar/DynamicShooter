@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Items;
 
 public class Outfitter : MonoBehaviour
 {

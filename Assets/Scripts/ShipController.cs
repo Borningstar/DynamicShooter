@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Assets.Scripts.Enemy;
 using Assets.Scripts.Mounts;
 using Assets.Scripts.Items.Reactors;
 using Assets.Scripts.Items;
 using Assets.Scripts.Items.Shields;
+using Assets.Scripts.Items.Hulls;
+using Assets.Scripts.Enemy.Ships;
 
 public class ShipController : MonoBehaviour {
 
@@ -97,14 +98,12 @@ public class ShipController : MonoBehaviour {
 
         if (this.shield != null)
         {
-            //TODO: get shield when refactor done
-            //items.Add(this.shield);
+            items.Add(this.shield);
         }
 
         if (this.hull != null)
         {
-            //TODO: Get hull when refactor done
-            //items.Add(this.hull);
+            items.Add(this.hull);
         }
 
         return items;
@@ -138,15 +137,8 @@ public class ShipController : MonoBehaviour {
     {
         if (collider.CompareTag("Enemy"))
         {
-            collider.GetComponent<Enemy>().DealDamage(COLLISION_DAMAGE);
-            if (this.shield.CurrentShield > 0)
-            {
-                this.shield.DealDamage(this.shield.CurrentShield);
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            collider.GetComponent<EnemyShip>().DealDamage(COLLISION_DAMAGE);
+            DealDamage(COLLISION_DAMAGE);
         }
     }
 
