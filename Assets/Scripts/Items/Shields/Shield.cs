@@ -13,7 +13,7 @@
         public float CurrentShield { get; protected set; }
 
         private float nextCharge;
-        private Reactor reactor;
+        private IReactor reactor;
         private bool applyDelay;
 
         void Start()
@@ -72,7 +72,7 @@
             return CurrentShield.ToString("0.0");
         }
 
-        public void ConnectReactor(Reactor reactor)
+        public void ConnectReactor(IReactor reactor)
         {
             this.reactor = reactor;
         }

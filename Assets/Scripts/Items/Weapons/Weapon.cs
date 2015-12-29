@@ -13,7 +13,7 @@
 
         protected float cost;
         protected float nextFire;
-        protected Reactor reactor;
+        protected IReactor reactor;
 
         protected virtual void Start()
         {
@@ -41,7 +41,7 @@
             cost *= Modifier.CostMod;
         }
 
-        public void ConnectReactor(Reactor reactor)
+        public void ConnectReactor(IReactor reactor)
         {
             this.reactor = reactor;
         }

@@ -19,14 +19,13 @@ public class ShipController : MonoBehaviour {
     public GUIText shieldText;
     public GUIText hullText;
 
-    public ReactorMount reactorMount;
-
-    public Reactor baseReactor;
     public Hull hull;
 
+    public ReactorMount reactorMount;
+    public ReactorMount baseReactorMount;
     public WeaponMount[] mountGroup;
     public WeaponMount[] mountGroupSecondary;
-    public Shield shield;
+    public ShieldMount shieldMount;
 
     private Rigidbody rb;
     
@@ -36,24 +35,24 @@ public class ShipController : MonoBehaviour {
 
         if (this.reactorMount.Mounted == null)
         {
-            this.reactorMount.Mounted = this.baseReactor;
+            this.reactorMount.Mounted = this.baseReactorMount.Mounted;
         }
 
-        this.shield.ConnectReactor(reactorMount.Mounted);
+        this.shieldMount.Mounted.ConnectReactor(reactorMount.Mounted);
 
-        foreach (var mount in this.mountGroup)
+        foreach (var weaponMount in this.mountGroup)
         {
-            if (mount.Mounted != null)
+            if (weaponMount.Mounted != null)
             {
-                mount.Mounted.ConnectReactor(this.reactorMount.Mounted);
+                weaponMount.Mounted.ConnectReactor(this.reactorMount.Mounted);
             }
         }
 
-        foreach (var mount in this.mountGroupSecondary)
+        foreach (var weaponMount in this.mountGroupSecondary)
         {
-            if (mount.Mounted != null)
+            if (weaponMount.Mounted != null)
             {
-                mount.Mounted.ConnectReactor(this.reactorMount.Mounted);
+                weaponMount.Mounted.ConnectReactor(this.reactorMount.Mounted);
             }
         }
     }
@@ -61,7 +60,7 @@ public class ShipController : MonoBehaviour {
 	void Update ()
     {
         this.reactorText.text = "Reactor: " + this.reactorMount.Mounted.ToString();
-        this.shieldText.text = "Shield: " + this.shield.ToString();
+        this.shieldText.text = "Shield: " + this.shieldMount.Mounted.ToString();
         this.hullText.text = "Hull: " + this.hull.ToString();
 
         if (Input.GetButton("Fire1"))
@@ -93,12 +92,12 @@ public class ShipController : MonoBehaviour {
 
         if (this.reactorMount != null)
         {
-            items.Add(this.reactorMount.Mounted);
+            items.Add((Reactor)this.reactorMount.Mounted);
         }
 
-        if (this.shield != null)
+        if (this.shieldMount.Mounted != null)
         {
-            items.Add(this.shield);
+            items.Add((Shield)this.shieldMount.Mounted);
         }
 
         if (this.hull != null)
@@ -119,7 +118,7 @@ public class ShipController : MonoBehaviour {
         return weaponMounts;
     }
 
-    public Reactor DetachReactor()
+    public IReactor DetachReactor()
     {
         var reactor = this.reactorMount.Mounted;
 
@@ -154,9 +153,9 @@ public class ShipController : MonoBehaviour {
 
     public void DealDamage(float damage)
     {
-        var remaining = this.shield.DealDamage(damage);
+        var remaining = this.shieldMount.Mounted.DealDamage(damage);
 
-        if (this.shield.CurrentShield <= 0)
+        if (this.shieldMount.Mounted.CurrentShield <= 0)
         {
             if (!this.hull.DealDamage(remaining))
             {

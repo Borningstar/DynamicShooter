@@ -4,7 +4,7 @@
 
     public sealed class ReactorMount : Mount
     {
-        public Reactor Mounted
+        public IReactor Mounted
         {
             get; set;
         }

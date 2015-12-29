@@ -10,7 +10,7 @@
         IModifier Modifier { get; set; } 
         float FireRate { get; }
 
-        void ConnectReactor(Reactor reactor);
+        void ConnectReactor(IReactor reactor);
         bool Fire();
         void LoadAmmo(GameObject ammo);
         void LoadModifier(IModifier modifier);

@@ -13,6 +13,6 @@
 
         float DealDamage(float damage);
         string ToString();
-        void ConnectReactor(Reactor reactor);
+        void ConnectReactor(IReactor reactor);
     }
 }
